@@ -14,3 +14,12 @@ $tariff = new TariffDto(
 );
 
 print_r($tariff);
+
+foreach (TariffType::cases() as $case) {
+    printf(
+        "Тариф %s: %s",
+        $case->value,
+        $case->code()
+    );
+    echo PHP_EOL;
+}
