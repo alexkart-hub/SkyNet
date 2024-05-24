@@ -2,6 +2,7 @@
 
 namespace App\Serializer;
 
+use App\Dto\DtoInterface;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
@@ -11,13 +12,18 @@ class JsonSerializer
     {
     }
 
-    public function serialize($data)
+    public function serialize(DtoInterface $data): string
     {
         return $this->serializer->serialize($data, JsonEncoder::FORMAT);
     }
 
-    public function deserialize($data, $type)
+    public function deserialize($data, $type): DtoInterface
     {
-        return $type::getByData($data);
+        if (!is_subclass_of($type, DtoInterface::class)) {
+            throw new \Exception(
+                "Вторым параметром необходимо передать имя класса, реализующего интерфейс DtoInterface"
+            );
+        }
+        return $type::fromJson($data);
     }
 }

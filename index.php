@@ -8,13 +8,13 @@ use App\Serializer\SerializerFactory;
 require_once __DIR__ . "/vendor/autoload.php";
 
 
-$tariff = new TariffDto(
-    name: "Тариф 1",
-    cost: 1000.0,
-    validityPeriod: new DateTime("now", new DateTimeZone("+3")),
-    speed: 100,
-    type: TariffType::ACTUAL
-);
+$tariff = TariffDto::fromArray([
+    "name" => "Тариф 1",
+    "cost" => 1000.0,
+    "validityPeriod" => new DateTime("now", new DateTimeZone("+3")),
+    "speed" => 100,
+    "type" => TariffType::ACTUAL
+]);
 
 print_r($tariff);
 
@@ -35,5 +35,5 @@ print_r($json);
 
 echo PHP_EOL;
 
-$obj = $serializer->deserialize($json, $tariff::class);
+$obj = $serializer->deserialize($json, TariffDto::class);
 print_r($obj);
