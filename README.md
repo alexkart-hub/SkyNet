@@ -17,7 +17,7 @@
 
 Создание образа
 ````
- docker build -t skynet .
+docker build -t skynet .
 ````
 
 Запуск скрипта
